@@ -18,4 +18,22 @@ Example: bowtie2 -x [path to index] [options] -S [name of preferred .sam file ou
 
 
 
+CONVERTER shell script usage
+Input: Follow example given when prompted.
+
+Output: A file called output_alignment.dat 
+You can rename this file after the shell script runs if you would like. You can do this through the mv command in terminal or by physically renaming the file in its directory if you are running this on a standalone computer.
+
+
+
+Fragment Assignment Script
+
+Input Format Example : 
+Directory Path:/s1/snagaraj/project_env/Homo_sapiens/UCSC/hg18/Sequence/Chromosomes
+Enzyme: HindIII
+Alignment File after conversion through CONVERTER: /s1/snagaraj/project_env/alignment_1.dat
+
+Make sure all these inputs are separated with a single comma and there is NO SPACE after each comma.
+
+Output: The output will be the name of the alignment file.assigned. So in my example, the output file would be in the directory /s1/snagaraj/project_env and would be alignment_1.dat.assigned.
 
