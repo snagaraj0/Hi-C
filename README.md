@@ -17,6 +17,9 @@ Example: bowtie2 -x [path to index] [options] -S [name of preferred .sam file ou
          bowtie2 -x [path to index] [options] -S [name of preferred .sam file output] [fastq_2 file]
 
 
+MAKE SURE THAT HADOOP AND SPARK ARE BOTH RUNNING IN ORDER TO USE HDFS!!!!
+
+
 
 # CONVERTER shell script usage
 
