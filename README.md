@@ -41,3 +41,9 @@ Make sure all these inputs are separated with a single comma and there is NO SPA
 
 Output: The output will be the name of the alignment file.assigned. So in my example, the output file would be in the directory /s1/snagaraj/project_env and would be alignment_1.dat.assigned.
 
+
+
+
+
+
+https://uisapp2.iu.edu/confluence-prd/pages/viewpage.action?pageId=280461906
