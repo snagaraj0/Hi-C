@@ -1,7 +1,7 @@
 # HiC-Pipeline
 ## Workflow for Hi-C
-
 # WORKFLOW GUIDELINES
+
 
 ## Getting a Reference Genome and Fastq/FASTA files
 
