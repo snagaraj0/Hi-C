@@ -9,9 +9,7 @@ Ex: Fastq-dump --split-files --fasta {Accession #}
 
 Find a Bowtie2 index online(widely available) as a reference genome or use bowtie2-builder(not recommended).
 
-# Running Bowtie2 to create SAM files
-
-Make sure to run Bowtie2 as an end to end aligner, rather than in paired-read alignment! This is due to the format of the shell-script which extracts information later on in the workflow.
+# Bowtie2 creates SAM files as an end-to-end aligner
 
 Example: bowtie2 -x [path to index] [options] -S [name of preferred .sam file output] [fastq_1 file]
          bowtie2 -x [path to index] [options] -S [name of preferred .sam file output] [fastq_2 file]
@@ -37,14 +35,19 @@ Directory Path:/s1/snagaraj/project_env/Homo_sapiens/UCSC/hg18/Sequence/Chromoso
 Enzyme: HindIII
 Alignment File after conversion through CONVERTER: /s1/snagaraj/project_env/alignment_1.dat
 
-Make sure all these inputs are separated with a single comma and there is NO SPACE after each comma.
+Make sure all these inputs are separated with a space and NO comma.
 
-Output: The output will be the name of the alignment file.assigned. So in my example, the output file would be in the directory /s1/snagaraj/project_env and would be alignment_1.dat.assigned.
-
-
+Output: The output will be the name of the alignment file.assigned. So in my example, the output file would be in the directory /s1/snagaraj/project_env and would be align.dat.assigned.
 
 
+# Filtering Script usage
+
+
+
+
+# XQUARTZ usage help guide
 
 https://uisapp2.iu.edu/confluence-prd/pages/viewpage.action?pageId=280461906
+
 
 TODO: Allow user to input/change percent cutoff for threshold in normalization.
