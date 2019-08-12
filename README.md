@@ -1,6 +1,9 @@
 # HiC-Pipeline
 
-#
+## Installation
+
+To download HiC-Pipeline, follow these instructions.
+
 ## WORKFLOW GUIDELINES
 
 
