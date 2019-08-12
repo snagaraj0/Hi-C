@@ -30,15 +30,15 @@ Next, configure your system to make the dependencies accessible.
 
 Add these user specific configurations to your environment.
 
-|                           | CONFIGURATIONS                                                               |
-| - - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  |
-|  PATH                     | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP            |                              
-|  PYTHONPATH               | PATH TO PYTHON3.7                                                            |                 
-|  JAVA_HOME                | PATH TO JAVA JDK FOR HADOOP                                                  |                            
-|  HADOOP_CONF_DIR          | $HADOOP_HOME:/etc/hadoop                                                     |                        
-|  SPARK_HOME               | PATH TO SPARK INSTALLATION                                                   |                          
-|  LD_LIBRARY_PATH          | $HADOOP_HOME:/lib/native:$LD_LIBRARY_PATH                                    |                               
-|  HADOOP_HOME              | PATH TO HADOOP INSTALLTION                                                   |
+|                | CONFIGURATIONS                                                                |
+|----------------|-------------------------------------------------------------------------------|
+| PATH           | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP             |                              
+| PYTHONPATH     | PATH TO PYTHON3.7                                                             |                 
+| JAVA_HOME      | PATH TO JAVA JDK FOR HADOOP                                                   |                            
+| HADOOP_CONF_DIR| $HADOOP_HOME:/etc/hadoop                                                      |                        
+| SPARK_HOME     | PATH TO SPARK INSTALLATION                                                    |                          
+| LD_LIBRARY_PATH| $HADOOP_HOME:/lib/native:$LD_LIBRARY_PATH                                     |                               
+|  HADOOP_HOME   | PATH TO HADOOP INSTALLTION                                                    |
 
 
 ## WORKFLOW GUIDELINES
