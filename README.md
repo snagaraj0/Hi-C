@@ -15,16 +15,16 @@ To download HiC-Pipeline, make sure you have the appropriate permissions and the
 
 First, download the HiC-Pipeline repository as a tarball and then untar with the following commands.
 
-'''
+```
 wget https://github.com/snagaraj0/HiC-Pipeline/tarball/master
 tar -xzvf HiC-Pipeline.tar.gz
-'''
+```
 or
 
-'''
+```
 curl -L  https://github.com/snagaraj0/HiC-Pipeline/tarball/master 
 tar -xzvf HiC-Pipeline.tar.gz
-'''
+```
 
 Next, configure your system to make the dependencies accessible.
 
@@ -32,11 +32,13 @@ Add these user specific configurations to your environment.
 
 |                           | CONFIGURATIONS                                                               |
 | _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |
-|  PATH                     | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP            |                               |  PYTHONPATH               | PATH TO PYTHON3.7                                                            |                 
+|  PATH                     | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP            |                              
+|  PYTHONPATH               | PATH TO PYTHON3.7                                                            |                 
 |  JAVA_HOME                | PATH TO JAVA JDK FOR HADOOP                                                  |                            
 |  HADOOP_CONF_DIR          | $HADOOP_HOME:/etc/hadoop                                                     |                        
 |  SPARK_HOME               | PATH TO SPARK INSTALLATION                                                   |                          
-|  LD_LIBRARY_PATH          | $HADOOP_HOME:/lib/native:$LD_LIBRARY_PATH                                    |                               |  HADOOP_HOME              | PATH TO HADOOP INSTALLTION                                                   |
+|  LD_LIBRARY_PATH          | $HADOOP_HOME:/lib/native:$LD_LIBRARY_PATH                                    |                               
+|  HADOOP_HOME              | PATH TO HADOOP INSTALLTION                                                   |
 
 
 ## WORKFLOW GUIDELINES
