@@ -31,7 +31,7 @@ Next, configure your system to make the dependencies accessible.
 Add these user specific configurations to your environment.
 
 |                           | CONFIGURATIONS                                                               |
-| _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |
+| - - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  |
 |  PATH                     | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP            |                              
 |  PYTHONPATH               | PATH TO PYTHON3.7                                                            |                 
 |  JAVA_HOME                | PATH TO JAVA JDK FOR HADOOP                                                  |                            
