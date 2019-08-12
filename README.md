@@ -45,5 +45,6 @@ Output: The output will be the name of the alignment file.assigned. So in my exa
 
 
 
-
 https://uisapp2.iu.edu/confluence-prd/pages/viewpage.action?pageId=280461906
+
+TODO: Allow user to input/change percent cutoff for threshold in normalization.
