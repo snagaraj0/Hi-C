@@ -2,7 +2,42 @@
 
 ## Installation
 
-To download HiC-Pipeline, follow these instructions.
+HiC-Pipeline requires the following dependencies to run:
+- The [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) mapper
+- Python 3.7 with matplotlib(> 3.1.1), numpy(> 1.16.4), pandas(> 0.25.0), bio( > 0.1.0),  biopython( > 1.74)
+- Apache Spark ( > 2.4.3) with findspark( > 1.3.0)
+- Hadoop (> 3.1.2)
+- Unix sorting. Install GNU core utilities if running on MacOS.
+
+It is also recommended that you run HiC-Pipeline in Linux and on a compute cluster.
+
+To download HiC-Pipeline, make sure you have the appropriate permissions and then follow these instructions.
+
+First, download the HiC-Pipeline repository as a tarball and then untar with the following commands.
+
+'''
+wget https://github.com/snagaraj0/HiC-Pipeline/tarball/master
+tar -xzvf HiC-Pipeline.tar.gz
+'''
+or
+
+'''
+curl -L  https://github.com/snagaraj0/HiC-Pipeline/tarball/master 
+tar -xzvf HiC-Pipeline.tar.gz
+'''
+
+Next, configure your system to make the dependencies accessible.
+
+Add these user specific configurations to your environment.
+
+|                           | CONFIGURATIONS                                                               |
+| _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |
+|  PATH                     | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP            |                               |  PYTHONPATH               | PATH TO PYTHON3.7                                                            |                 
+|  JAVA_HOME                | PATH TO JAVA JDK FOR HADOOP                                                  |                            
+|  HADOOP_CONF_DIR          | $HADOOP_HOME:/etc/hadoop                                                     |                        
+|  SPARK_HOME               | PATH TO SPARK INSTALLATION                                                   |                          
+|  LD_LIBRARY_PATH          | $HADOOP_HOME:/lib/native:$LD_LIBRARY_PATH                                    |                               |  HADOOP_HOME              | PATH TO HADOOP INSTALLTION                                                   |
+
 
 ## WORKFLOW GUIDELINES
 
