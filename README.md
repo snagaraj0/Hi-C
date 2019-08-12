@@ -28,7 +28,7 @@ tar -xzvf HiC-Pipeline.tar.gz
 
 Next, configure your system to make the dependencies accessible.
 
-Add these user specific configurations to your environment.
+Add these user specific configurations to your .bash_profile.
 
 |                | CONFIGURATIONS                                                                |
 |----------------|-------------------------------------------------------------------------------|
@@ -39,6 +39,20 @@ Add these user specific configurations to your environment.
 | SPARK_HOME     | PATH TO SPARK INSTALLATION                                                    |                          
 | LD_LIBRARY_PATH| $HADOOP_HOME:/lib/native:$LD_LIBRARY_PATH                                     |                               
 |  HADOOP_HOME   | PATH TO HADOOP INSTALLTION                                                    |
+
+
+Add these user specific configurations to your .bashrc
+
+
+|                   | CONFIGURATIONS                                                                |
+|-------------------|-------------------------------------------------------------------------------|
+| PATH              | ADD PATH TO $HADOOP_HOME/bin and $HADOOP_HOME/sbin                            |                              
+| HADOOP_MAPRED_HOME| $HADOOP_HOME                                                                  |                 
+| HADOOP_COMMON_HOME| $HADOOP_HOME                                                                  |                            
+| HADOOP_HDFS       | $HADOOP_HOME                                                                  |                        
+| YARN_HOME         | $HADOOP_HOME                                                                  |                                     
+| HADOOP_HOME       | PATH TO HADOOP INSTALLTION                                                    |
+
 
 
 ## WORKFLOW GUIDELINES
