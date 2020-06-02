@@ -10,9 +10,10 @@ import sys
 import pydoop.hdfs as hdfs
 import logging
 
-exec_mem = sys.argv[4]
-driver_mem = sys.argv[5]
-max_cores = sys.argv[6]
+options = sys.argv[4]
+exec_mem = sys.argv[5]
+driver_mem = sys.argv[6]
+max_cores = sys.argv[7]
 
 start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
