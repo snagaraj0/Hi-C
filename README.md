@@ -1,4 +1,4 @@
-# HiC-Pipeline
+# SparkMap
 
 ## Installation
 
@@ -55,8 +55,7 @@ Add these user specific configurations to your .bashrc
 
 
 
-## WORKFLOW GUIDELINES
-
+## USAGE GUIDELINES
 
 ### Getting a Reference Genome and Fastq/FASTA files
 
@@ -66,45 +65,23 @@ Ex: Fastq-dump --split-files --fasta {Accession #}
 
 Find a Bowtie2 index online(widely available) as a reference genome or use bowtie2-builder(not recommended).
 
-### Bowtie2 creates SAM files as an end-to-end aligner
+### Bowtie2 creates SAM files as a single-end or paired-end aligner
 
-Example: bowtie2 -x [path to index] [options] -S [name of preferred .sam file output] [fastq_1 file]
-         bowtie2 -x [path to index] [options] -S [name of preferred .sam file output] [fastq_2 file]
+Single-End: bowtie2 -x [path to index] [options] [fastq file] -S [name of preferred .sam file output] 
+Paired-End: bowtie2 -x [path to index] [options] -1 [fastq_1 file] -2 [fastq_2 file] -S [name of preferred .sam file output]
 
+### Starting Hadoop and Spark
 
-MAKE SURE THAT HADOOP AND SPARK ARE BOTH RUNNING IN ORDER TO USE HDFS!!!!
+In order to use Hadoop Distributed File System(HDFS), run start-all.sh in the $HADOOP_HOME/sbin directory to start all Hadoop Daemons.
 
+Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory to start the Spark master and all Spark workers.
 
 
 ### CONVERTER shell script usage
 
 Input: Follow example given when prompted.
+Output: A file called output_alignment.dat
 
-Output: A file called output_alignment.dat 
 You can rename this file after the shell script runs if you would like. You can do this through the mv command in terminal or by physically renaming the file in its directory if you are running this on a standalone computer.
 
 
-
-### Fragment Assignment Script usage
-
-Input Format Example : 
-Directory Path:/s1/snagaraj/project_env/Homo_sapiens/UCSC/hg18/Sequence/Chromosomes
-Enzyme: HindIII
-Alignment File after conversion through CONVERTER: /s1/snagaraj/project_env/alignment_1.dat
-
-Make sure all these inputs are separated with a space and NO comma.
-
-Output: The output will be the name of the alignment file.assigned. So in my example, the output file would be in the directory /s1/snagaraj/project_env and would be align.dat.assigned.
-
-
-### Filtering Script usage
-
-
-
-
-## XQUARTZ usage help guide
-
-https://uisapp2.iu.edu/confluence-prd/pages/viewpage.action?pageId=280461906
-
-
-TODO: Allow user to input/change percent cutoff for threshold in normalization.
