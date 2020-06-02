@@ -8,33 +8,27 @@ from pyspark.sql import SQLContext
 import subprocess
 import sys
 import pydoop.hdfs as hdfs
+import logging
 
+options = sys.argv[5]
+exec_mem = sys.argv[6]
+driver_mem = sys.argv[7]
+max_cores = sys.argv[8]
+
+logging.basicConfig(filename='pair.log', filemode='w', format='%(name)s - %(message)s')
 start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
-conf = conf.set('spark.executor.memory', '4G').set('spark.driver.memory', '100G').set("spark.cores.max", "165")
-#conf = conf.set("spark.dynamicAllocation.enabled", "true").set("spark.dynamicAllocation.minExecutors","5").set("spark.dynamicAllocation.initialExecutors", "5").set("spark.dynamicAllocation.maxExecutors","5")
-#conf = conf.set('spark.executor.instances', '5')
+conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores)
 sc = SparkContext.getOrCreate(conf=conf)
-#sc._jsc.hadoopConfiguration().set("fs.defaultFS", "hdfs://greg-hn:9000")
 print(sc.getConf().getAll())
-
 
 
 test_input = sys.argv[1]
 o_input = sys.argv[2]
-'''
-temp = 0
-head = ""
-with open(test_input) as file:
-   for line in file:
-        if(temp == 4):
-           break;
-        head+=line
-        temp = temp + 1
-print(len(head))
-'''
-#subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/data"])
+
+subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user"])
+subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/data"])
 subprocess.call(["hdfs", "dfs", "-put", test_input, "/user/data" ])
 subprocess.call(["hdfs", "dfs", "-put", o_input, "/user/data" ])
 
@@ -45,7 +39,7 @@ o_input = o_input.split('/')
 end_o_input = o_input[len(o_input)- 1]
 
 st = sys.argv[4]
-filestr="/s1/snagaraj/project_env/" + st
+filestr= st
 print(filestr)
 
 input_file = "hdfs:/user/data/" + end_input
@@ -54,62 +48,51 @@ print(input_file)
 input_file1 = "hdfs:/user/data/" + end_o_input
 print(input_file1)
 
-# creates tuples with format (string, line number)
-raw_input = (sc.textFile(input_file)).zipWithIndex()
-raw_input1 = (sc.textFile(input_file1)).zipWithIndex()
-print(raw_input.take(10))
+# label each line with its positional number
+text_input = (sc.textFile(input_file)).zipWithIndex()
+text_input1 = (sc.textFile(input_file1)).zipWithIndex()
+test = raw_input.take(10)
+logging.debug(test)
 
-# create tuple with format (read number, dna)
-map_raw_input = raw_input.map(lambda read: (math.floor(read[1]/4), read[0]))
-map_raw_input1 = raw_input1.map(lambda read: (math.floor(read[1]/4), read[0]))
-temp = map_raw_input.take(20)
-print(temp)
+# map every 4 strings under the same read number
+map_text_input = text_input.map(lambda read: (math.floor(read[1]/4), read[0]))
+map_text_input1 = text_input1.map(lambda read: (math.floor(read[1]/4), read[0]))
+test = map_text_input.take(20)
+logging.debug(test)
 
-# add 4 strings in each read
-def readcreation(reads):
+# Combine all strings with same read number together
+def create(reads):
     temp = 0
-    line = ""
-    line1 = ""
-    line2 = ""
-    line3 = ""
+    line_str = ""
     for read in reads:
-        if  temp == 0:
-            line = read 
-        elif temp == 1:
-            line1 = read
-        elif temp == 2:
-            line2 = read
+        if(temp % 4 == 0 and temp/4 == 1):
+            break
         else:
-            line3 = read
-        temp = temp+1
-    return "%s\n%s\n%s\n%s\n"  % (line, line1, line2, line3)
+            line_str += read + '\n'
+            temp = temp + 1
+    return line_str
+    
 
-reads = map_raw_input.groupByKey().mapValues(lambda read: readcreation(read))
-reads1 = map_raw_input1.groupByKey().mapValues(lambda read: readcreation(read))
-#print(reads.take(20))
+reads = map_text_input.groupByKey().mapValues(lambda read: create(read))
+reads1 = map_text_input1.groupByKey().mapValues(lambda read: create(read))
+test = reads.take(20)
+logging.debug(test)
 
 combineRDD = reads.join(reads1)
 print(combineRDD.take(20))
 
-# Sort by line # and get reads corresponding to each
-#readsRDD = reads.sortByKey().values()
-#readsRDD1 = reads1.sortByKey().values() 
+# Sort by the line number and then grab all the values associated with that line number
 val_combineRDD = combineRDD.sortByKey().values()
-num_reads = val_combineRDD.count()
-print(num_reads)
-print(val_combineRDD.first())
-#print("p2",readsRDD1.take(20))
+test = val_combineRDD.first()
+logging.debug(test)
+
 bowtie_index = sys.argv[3]
 combinedRDD = val_combineRDD.map(lambda x: x[0] + x[1])
 test= combinedRDD.take(20)
-print(test[0])
-#test.saveAsTextFile("/s1/snagaraj/project_env/temp.txt")
+logging.debug(test[0])
 
-#alignment_pipe = readsRDD.pipe("/s1/snagaraj/bowtie2/bowtie2 --quiet --local --very-sensitive-local -x " + bowtie_index + " -")
-alignment_pipe = combinedRDD.pipe("/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -x " + bowtie_index + " --interleaved " + " -") 
-#alignment_pipe = combinedRDD.pipe("/s1/snagaraj/project_env/run.sh " + bowtie_index)
+alignment_pipe = combinedRDD.pipe(filestr + "/bowtie2 " + options + " -x " + bowtie_index + " --interleaved " + " -") 
 
-#alignmentRDD =combinedRDD.pipe("/s1/snagaraj/project_env/run.py " + bowtie_index)
 print(alignment_pipe.take(20))
 
 
@@ -127,7 +110,5 @@ check=alignment_pipe.getNumPartitions()
 print(check)
 aligned_output = alignment_pipe.foreachPartition(lambda x: create(x))
 end = time.time()
-temp_file = open("time.txt", 'a+')
-temp_file.write("Runtime: " + str(end-start))
-temp_file.close()
+
 sc.stop()
