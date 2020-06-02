@@ -32,7 +32,7 @@ Add these user specific configurations to your .bash_profile.
 
 |                | CONFIGURATIONS                                                                |
 |----------------|-------------------------------------------------------------------------------|
-| PATH           | ADD PATH TO INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP             |                              
+| PATH           | ADD SPARKMAP INSTALLATION FOLDER AND LOCATIONS OF SPARK AND HADOOP TO PATH    |                              
 | PYTHONPATH     | PATH TO PYTHON3.7                                                             |                 
 | JAVA_HOME      | PATH TO JAVA JDK FOR HADOOP                                                   |                            
 | HADOOP_CONF_DIR| $HADOOP_HOME:/etc/hadoop                                                      |                        
@@ -46,10 +46,10 @@ Add these user specific configurations to your .bashrc
 
 |                   | CONFIGURATIONS                                                                |
 |-------------------|-------------------------------------------------------------------------------|
-| PATH              | ADD PATH TO $HADOOP_HOME/bin and $HADOOP_HOME/sbin                            |                              
+| PATH              | ADD $HADOOP_HOME/bin and $HADOOP_HOME/sbin to PATH                            |                              
 | HADOOP_MAPRED_HOME| $HADOOP_HOME                                                                  |                 
 | HADOOP_COMMON_HOME| $HADOOP_HOME                                                                  |                            
-| HADOOP_HDFS       | $HADOOP_HOME                                                                  |                        
+| HADOOP_HDFS_HOME  | $HADOOP_HOME                                                                  |                        
 | YARN_HOME         | $HADOOP_HOME                                                                  |                                     
 | HADOOP_HOME       | PATH TO HADOOP INSTALLTION                                                    |
 
