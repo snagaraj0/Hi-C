@@ -2,28 +2,28 @@
 
 ## Installation
 
-HiC-Pipeline requires the following dependencies to run:
+SparkMap requires the following dependencies to run:
 - The [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) mapper
 - Python 3.7 with matplotlib(> 3.1.1), numpy(> 1.16.4), pandas(> 0.25.0), bio( > 0.1.0),  biopython( > 1.74)
 - Apache Spark ( > 2.4.3) with findspark( > 1.3.0)
 - Hadoop (> 3.1.2)
 - Unix sorting. Install GNU core utilities if running on MacOS.
 
-It is also recommended that you run HiC-Pipeline in Linux and on a compute cluster.
+It is also recommended that you run SparkMap in Linux and on a compute cluster.
 
-To download HiC-Pipeline, make sure you have the appropriate permissions and then follow these instructions.
+To download SparkMap, make sure you have the appropriate permissions and then follow these instructions.
 
 First, download the HiC-Pipeline repository as a tarball and then untar with the following commands.
 
 ```
-wget https://github.com/snagaraj0/HiC-Pipeline/tarball/master
-tar -xzvf HiC-Pipeline.tar.gz
+wget https://github.com/snagaraj0/SparkMap/tarball/master
+tar -xzvf SparkMap.tar.gz
 ```
 or
 
 ```
-curl -L  https://github.com/snagaraj0/HiC-Pipeline/tarball/master 
-tar -xzvf HiC-Pipeline.tar.gz
+curl -L  https://github.com/snagaraj0/SparkMap/tarball/master 
+tar -xzvf SparkMap.tar.gz
 ```
 
 Next, configure your system to make the dependencies accessible.
