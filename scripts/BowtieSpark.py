@@ -10,29 +10,31 @@ import sys
 import pydoop.hdfs as hdfs
 from operator import add
 
+exec_mem = sys.argv[4]
+driver_mem = sys.argv[5]
+max_cores = sys.argv[6]
+
 start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
-conf = conf.set('spark.executor.memory', '4G').set('spark.driver.memory', '100G').set("spark.cores.max", "165")
-#conf = conf.set("spark.dynamicAllocation.enabled", "true").set("spark.dynamicAllocation.minExecutors","5").set("spark.dynamicAllocation.initialExecutors", "5").set("spark.dynamicAllocation.maxExecutors","5")
+conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores)
 sc = SparkContext.getOrCreate(conf=conf)
-#sc._jsc.hadoopConfiguration().set("fs.defaultFS", "hdfs://greg-hn:9000")
 print(sc.getConf().getAll())
 
 
 
 test_input = sys.argv[1]
 
+subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/"])
 subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/data"])
 subprocess.call(["hdfs", "dfs", "-put", test_input, "/user/data" ])
-#subprocess.call(["hdfs", "dfs", "-put", o_input, "/user/data" ])
 
 test_input = test_input.split('/')
 test_len = len(test_input) - 1
 end_input = test_input[test_len]
 
 st = sys.argv[3]
-filestr="/s1/snagaraj/project_env/" + st
+filestr= st
 print(filestr)
 
 input_file = "hdfs:/user/data/" + end_input
@@ -71,8 +73,7 @@ print(num_reads)
 bowtie_index = sys.argv[2]
 
 #starts bowtie with parameters to bowtie index.
-#alignment_pipe = readsRDD.pipe("/s1/snagaraj/bowtie2/bowtie2 --quiet --local --very-sensitive-local -x " + bowtie_index + " -")
-alignment_pipe = readsRDD.pipe("/s1/snagaraj/bowtie2/bowtie2 --no-sq --no-hd -x " + bowtie_index + " -")
+alignment_pipe = readsRDD.pipe(st + "/bowtie2 --no-sq --no-hd -x " + bowtie_index + " -")
 
 
 def create_sam(output):
@@ -87,6 +88,7 @@ def create_sam(output):
 
 check=alignment_pipe.getNumPartitions()
 print(check)
+#Write to SAM file by putting together all partitions
 aligned_output = alignment_pipe.foreachPartition(lambda output: create_sam(output))
 end = time.time()
 temp_file = open("time.txt", 'a+')
