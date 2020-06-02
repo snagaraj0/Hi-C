@@ -8,7 +8,6 @@ from pyspark.sql import SQLContext
 import subprocess
 import sys
 import pydoop.hdfs as hdfs
-from operator import add
 import logging
 
 start = time.time()
