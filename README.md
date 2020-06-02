@@ -4,7 +4,7 @@
 
 SparkMap requires the following dependencies to run:
 - The [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) mapper
-- Python 3.7 with matplotlib(> 3.1.1), numpy(> 1.16.4), pandas(> 0.25.0), bio( > 0.1.0),  biopython( > 1.74)
+- Python 3.7 with numpy(> 1.16.4), progressbar2(>3.50.1) , pydoop( > 2.0.0), py4j(> 0.10.7), pyinstaller(>3.6), python-utils(>2.4.0)
 - Apache Spark ( > 2.4.3) with findspark( > 1.3.0)
 - Hadoop (> 3.1.2)
 - Unix sorting. Install GNU core utilities if running on MacOS.
@@ -13,7 +13,7 @@ It is also recommended that you run SparkMap in Linux and on a compute cluster.
 
 To download SparkMap, make sure you have the appropriate permissions and then follow these instructions.
 
-First, download the HiC-Pipeline repository as a tarball and then untar with the following commands.
+First, download the HiC-Pipeline repository as a tarball and  then untar with the following commands.
 
 ```
 wget https://github.com/snagaraj0/SparkMap/tarball/master
@@ -65,10 +65,7 @@ Ex: Fastq-dump --split-files --fasta {Accession #}
 
 Find a Bowtie2 index online(widely available) as a reference genome or use bowtie2-builder(not recommended).
 
-### Bowtie2 creates SAM files as a single-end or paired-end aligner
-
-Single-End: bowtie2 -x [path to index] [options] [fastq file] -S [name of preferred .sam file output] 
-Paired-End: bowtie2 -x [path to index] [options] -1 [fastq_1 file] -2 [fastq_2 file] -S [name of preferred .sam file output]
+### Install Bowtie2 as an executable in the same directory as your input FASTQ file/files.
 
 ### Starting Hadoop and Spark
 
@@ -76,12 +73,40 @@ In order to use Hadoop Distributed File System(HDFS), run start-all.sh in the $H
 
 Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory to start the Spark master and all Spark workers.
 
+### Running SparkMap in single-end mode
+
+1) Edit bowtie.sh file with parameters in the following format:
+
+python BowtieSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+
+See sample bowtie.sh file for an example.
+
+2) Run "chmod +x bowtie.sh" to give permissions
+
+3) Run ./bowtie.sh to run Spark as an interactive process or run "nohup ./bowtie.sh" to run Spark as a background process.
+
+
+### Running SparkMap in paired-end mode
+
+1) Edit bowtie1.sh file with parameters in the following format:
+
+python BowtieSpark.py Full_path_to_fastq_file_1 Full_path_to_fastq_file_2 Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+
+See sample bowtie1.sh file for an example.
+
+2) Run "chmod +x bowtie1.sh" to give permissions
+
+3) Run ./bowtie1.sh to run Spark as an interactive process or run "nohup ./bowtie.sh" to run Spark as a background process.
 
 ### CONVERTER shell script usage
 
-Input: Follow example given when prompted.
+Use CONVERTER.sh for single-end/locally aligned SAM files and CONVERT_pair.sh for paired-end SAM files. These scripts are useful to create  interactions data(Hi-C) in the form:
+
+Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2
+
+Input: Pass SAM file name
 Output: A file called output_alignment.dat
 
-You can rename this file after the shell script runs if you would like. You can do this through the mv command in terminal or by physically renaming the file in its directory if you are running this on a standalone computer.
 
+Rename this file after the shell script runs if you would like.
 
