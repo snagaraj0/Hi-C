@@ -10,15 +10,16 @@ import sys
 import pydoop.hdfs as hdfs
 import logging
 
+exec_mem = sys.argv[4]
+driver_mem = sys.argv[5]
+max_cores = sys.argv[6]
+
 start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
-conf = conf.set('spark.executor.memory', '4G').set('spark.driver.memory', '100G').set("spark.cores.max", "165")
-#conf = conf.set("spark.dynamicAllocation.enabled", "true").set("spark.dynamicAllocation.minExecutors","5").set("spark.dynamicAllocation.initialExecutors", "5").set("spark.dynamicAllocation.maxExecutors","5")
+conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores)
 sc = SparkContext.getOrCreate(conf=conf)
-#sc._jsc.hadoopConfiguration().set("fs.defaultFS", "hdfs://greg-hn:9000")
 print(sc.getConf().getAll())
-
 
 logging.basicConfig(filename='single.log', filemode='w', format='%(name)s - %(message)s')
 test_input = sys.argv[1]
