@@ -91,12 +91,13 @@ combinedRDD = val_combineRDD.map(lambda x: x[0] + x[1])
 test= combinedRDD.take(20)
 logging.debug(test[0])
 
+#starts bowtie with parameters to bowtie index.
 alignment_pipe = combinedRDD.pipe(filestr + "/bowtie2 " + options + " -x " + bowtie_index + " --interleaved " + " -") 
+test = alignment_pipe.take(20)
+logging.debug(test)
 
-print(alignment_pipe.take(20))
 
-
-def create(output):
+def create_sam(output):
     try:
        file = open(filestr, "a+")
        for alignment in output:
@@ -105,10 +106,11 @@ def create(output):
     except Exception as ex:
        print(ex)
 
-
 check=alignment_pipe.getNumPartitions()
-print(check)
-aligned_output = alignment_pipe.foreachPartition(lambda x: create(x))
-end = time.time()
+logging.debug("Number of partitions:" + str(check))
 
+# Write partitions to SAM file
+aligned_output = alignment_pipe.foreachPartition(lambda output: create_sam(output))
+end = time.time()
+logging.info("Runtime: " + str(end-start))
 sc.stop()
