@@ -58,7 +58,7 @@ print(input_file1)
 # label each line with its positional number
 text_input = (sc.textFile(input_file)).zipWithIndex()
 text_input1 = (sc.textFile(input_file1)).zipWithIndex()
-test = raw_input.take(10)
+test = text_input.take(10)
 logging.info(test)
 
 # map every 4 strings under the same read number
