@@ -104,8 +104,7 @@ Use CONVERTER.sh for single-end/locally aligned SAM files and CONVERT_pair.sh fo
 
 Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2
 
-Input: Pass SAM file name
-Output: A file called output_alignment.dat
+Input: Pass input SAM file name and output text file name 
 
 
 Rename this file after the shell script runs if you would like.
