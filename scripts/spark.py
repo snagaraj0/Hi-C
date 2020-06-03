@@ -86,7 +86,8 @@ test = reads.take(20)
 logging.info(test)
 
 combineRDD = reads.join(reads1)
-print(combineRDD.take(20))
+test = combineRDD.take(20)
+logging.info(test)
 
 # Sort by the line number and then grab all the values associated with that line number
 val_combineRDD = combineRDD.sortByKey().values()
@@ -114,7 +115,7 @@ def create_sam(output):
        print(ex)
 
 check=alignment_pipe.getNumPartitions()
-logging.debug("Number of partitions:" + str(check))
+logging.info("Number of partitions:" + str(check))
 
 # Write partitions to SAM file
 aligned_output = alignment_pipe.foreachPartition(lambda output: create_sam(output))
