@@ -10,10 +10,10 @@ import sys
 import pydoop.hdfs as hdfs
 import logging
 
-options = sys.argv[4]
-exec_mem = sys.argv[5]
-driver_mem = sys.argv[6]
-max_cores = sys.argv[7]
+options = sys.argv[5]
+exec_mem = sys.argv[6]
+driver_mem = sys.argv[7]
+max_cores = sys.argv[8]
 
 start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
@@ -24,7 +24,8 @@ print(sc.getConf().getAll())
 
 logging.basicConfig(filename='single.log', filemode='w', level=logging.INFO)
 logging.getLogger().setLevel(logging.INFO)
-test_input = sys.argv[1]
+mapper = sys.argv[1]
+test_input = sys.argv[2]
 
 subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/data"])
 subprocess.call(["hdfs", "dfs", "-put", test_input, "/user/data" ])
@@ -33,7 +34,7 @@ test_input = test_input.split('/')
 test_len = len(test_input) - 1
 end_input = test_input[test_len]
 
-st = sys.argv[3]
+st = sys.argv[4]
 filestr= st
 logging.info(filestr)
 
@@ -76,7 +77,7 @@ logging.info(test)
 
 # Sort by the line number and then grab all the values associated with that line number
 readsRDD = read_map.sortByKey().values()
-bowtie_index = sys.argv[2]
+bowtie_index = sys.argv[3]
 
 #starts bowtie with parameters to bowtie index.
 alignment_pipe = readsRDD.pipe(bowtie_exec + "bowtie2 " + options + " -x " + bowtie_index + " -")
