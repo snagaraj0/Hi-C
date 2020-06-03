@@ -37,10 +37,10 @@ st = sys.argv[3]
 filestr= st
 logging.info(filestr)
 
-bowtie_exec = filestr.split('/')
-string_exec = ""
-for i in range(len(bowtie_exec) - 1):
-    string_exec += bowtie_exec[i]
+bowtie_exec_index = filestr.rfind("/")
+bowtie_exec = ""
+for i in range(bowtie_exec_index + 1):
+    bowtie_exec += filestr[i]
 
 input_file = "hdfs:/user/data/" + end_input
 print(input_file)
@@ -79,7 +79,7 @@ readsRDD = read_map.sortByKey().values()
 bowtie_index = sys.argv[2]
 
 #starts bowtie with parameters to bowtie index.
-alignment_pipe = readsRDD.pipe(string_exec + "/bowtie2 " + options + " -x " + bowtie_index + " -")
+alignment_pipe = readsRDD.pipe(bowtie_exec + "bowtie2 " + options + " -x " + bowtie_index + " -")
 
 def create_sam(output):
     try:
