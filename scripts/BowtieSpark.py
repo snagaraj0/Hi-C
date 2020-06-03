@@ -27,7 +27,6 @@ test_input = sys.argv[1]
 
 subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/data"])
 subprocess.call(["hdfs", "dfs", "-put", test_input, "/user/data" ])
-#subprocess.call(["hdfs", "dfs", "-put", o_input, "/user/data" ])
 
 test_input = test_input.split('/')
 test_len = len(test_input) - 1
