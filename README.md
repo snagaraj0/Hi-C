@@ -77,7 +77,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit bowtie.sh file with parameters in the following format:
 
-python BowtieSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+python BowtieSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_directory_with_sam_file Name_of_SAM_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
 
 See sample bowtie.sh file for an example.
 
@@ -90,7 +90,7 @@ See sample bowtie.sh file for an example.
 
 1) Edit bowtie1.sh file with parameters in the following format:
 
-python BowtieSpark.py Full_path_to_fastq_file_1 Full_path_to_fastq_file_2 Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+python BowtieSpark.py Full_path_to_fastq_file_1 Full_path_to_fastq_file_2 Full_path_to_bowtie2_index Full_path_to_directory_with_sam_file Name_of_SAM_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
 
 See sample bowtie1.sh file for an example.
 
