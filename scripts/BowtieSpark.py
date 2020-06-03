@@ -42,7 +42,7 @@ print(input_file)
 # label each line with its positional number
 text_input = (sc.textFile(input_file)).zipWithIndex()
 
-test = text_input.take(10))
+test = text_input.take(10)
 logging.debug(test)
 # map every 4 strings under the same read number
 
@@ -64,7 +64,7 @@ def create(reads):
 
 
 read_map = map_text_input.groupByKey().mapValues(lambda read: create(read))
-test = read_map.take(20))
+test = read_map.take(20)
 logging.debug(test)
 
 
