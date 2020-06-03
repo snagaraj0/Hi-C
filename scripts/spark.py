@@ -15,7 +15,8 @@ exec_mem = sys.argv[6]
 driver_mem = sys.argv[7]
 max_cores = sys.argv[8]
 
-logging.basicConfig(filename='pair.log', filemode='w', format='%(name)s - %(message)s')
+logging.basicConfig(filename='pair.log', filemode='w', level=logging.INFO)
+
 start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
@@ -40,7 +41,13 @@ end_o_input = o_input[len(o_input)- 1]
 
 st = sys.argv[4]
 filestr= st
-print(filestr)
+logging.info(filestr)
+
+bowtie_exec_index = filestr.rfind("/")
+bowtie_exec = ""
+for i in range(bowtie_exec_index + 1):
+    bowtie_exec += filestr[i]
+
 
 input_file = "hdfs:/user/data/" + end_input
 print(input_file)
@@ -52,13 +59,13 @@ print(input_file1)
 text_input = (sc.textFile(input_file)).zipWithIndex()
 text_input1 = (sc.textFile(input_file1)).zipWithIndex()
 test = raw_input.take(10)
-logging.debug(test)
+logging.info(test)
 
 # map every 4 strings under the same read number
 map_text_input = text_input.map(lambda read: (math.floor(read[1]/4), read[0]))
 map_text_input1 = text_input1.map(lambda read: (math.floor(read[1]/4), read[0]))
 test = map_text_input.take(20)
-logging.debug(test)
+logging.info(test)
 
 # Combine all strings with same read number together
 def create(reads):
@@ -76,7 +83,7 @@ def create(reads):
 reads = map_text_input.groupByKey().mapValues(lambda read: create(read))
 reads1 = map_text_input1.groupByKey().mapValues(lambda read: create(read))
 test = reads.take(20)
-logging.debug(test)
+logging.info(test)
 
 combineRDD = reads.join(reads1)
 print(combineRDD.take(20))
@@ -84,17 +91,17 @@ print(combineRDD.take(20))
 # Sort by the line number and then grab all the values associated with that line number
 val_combineRDD = combineRDD.sortByKey().values()
 test = val_combineRDD.first()
-logging.debug(test)
+logging.info(test)
 
 bowtie_index = sys.argv[3]
 combinedRDD = val_combineRDD.map(lambda x: x[0] + x[1])
 test= combinedRDD.take(20)
-logging.debug(test[0])
+logging.info(test[0])
 
 #starts bowtie with parameters to bowtie index.
-alignment_pipe = combinedRDD.pipe(filestr + "/bowtie2 " + options + " -x " + bowtie_index + " --interleaved " + " -") 
+alignment_pipe = combinedRDD.pipe(bowtie_exec + "bowtie2 " + options + " -x " + bowtie_index + " --interleaved " + " -") 
 test = alignment_pipe.take(20)
-logging.debug(test)
+logging.info(test)
 
 
 def create_sam(output):
