@@ -20,10 +20,11 @@ conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
 conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores)
 sc = SparkContext.getOrCreate(conf=conf)
-print(sc.getConf().getAll())
 
 logging.basicConfig(filename='single.log', filemode='w', level=logging.INFO)
 logging.getLogger().setLevel(logging.INFO)
+logging.info(sc.getConf().getAll())
+
 mapper = sys.argv[1]
 test_input = sys.argv[2]
 
