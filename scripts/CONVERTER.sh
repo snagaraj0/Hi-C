@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script for processing sam files and create a single file containing all necessary information from the output of an alignment
+# Script to create single file with all interactions data from 2 single-end SAM files
 
 #  extract important information from sam file
 awk '{print $1,$3,$4,$2,$5;}' $1 > p1.sam.0
