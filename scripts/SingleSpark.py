@@ -81,7 +81,7 @@ readsRDD = read_map.sortByKey().values()
 bowtie_index = sys.argv[3]
 
 #starts bowtie with parameters to bowtie index.
-alignment_pipe = readsRDD.pipe(bowtie_exec + "bowtie2 " + options + " -x " + bowtie_index + " -")
+alignment_pipe = readsRDD.pipe(bowtie_exec + mapper + " " + options + " -x " + bowtie_index + " -")
 
 def create_sam(output):
     try:
