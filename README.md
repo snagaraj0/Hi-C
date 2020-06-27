@@ -3,7 +3,8 @@
 ## Installation
 
 SparkMap requires the following dependencies to run:
-- Any mapper that can be installed as a local executable, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) 
+- Any mapper that can be installed as a local executable, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) for single-end mapping
+- Bowtie2 for paired-end mapping
 - Python 3.7 with numpy(> 1.16.4), progressbar2(>3.50.1) , pydoop( > 2.0.0), py4j(> 0.10.7), pyinstaller(>3.6), python-utils(>2.4.0)
 - Apache Spark ( > 2.4.3) with findspark( > 1.3.0)
 - Hadoop (> 3.1.2)
@@ -75,28 +76,28 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 ### Running SparkMap in single-end mode
 
+1) Edit run.sh file with parameters in the following format:
+
+python SingleSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+
+See sample run.sh file for an example.
+
+2) Run "chmod +x run.sh" to give permissions
+
+3) Run ./run.sh to run Spark as an interactive process or run "nohup ./run.sh" to run Spark as a background process.
+
+
+### Running SparkMap in paired-end mode
+
 1) Edit bowtie.sh file with parameters in the following format:
 
-python BowtieSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+python BowtieSpark.py Full_path_to_fastq_file_1 Full_path_to_fastq_file_2 Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
 
 See sample bowtie.sh file for an example.
 
 2) Run "chmod +x bowtie.sh" to give permissions
 
 3) Run ./bowtie.sh to run Spark as an interactive process or run "nohup ./bowtie.sh" to run Spark as a background process.
-
-
-### Running SparkMap in paired-end mode
-
-1) Edit bowtie1.sh file with parameters in the following format:
-
-python BowtieSpark.py Full_path_to_fastq_file_1 Full_path_to_fastq_file_2 Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
-
-See sample bowtie1.sh file for an example.
-
-2) Run "chmod +x bowtie1.sh" to give permissions
-
-3) Run ./bowtie1.sh to run Spark as an interactive process or run "nohup ./bowtie.sh" to run Spark as a background process.
 
 ### CONVERTER shell script usage
 
