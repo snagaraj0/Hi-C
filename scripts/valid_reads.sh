@@ -1,1 +1,1 @@
-pipenv run python duplicates.py single.sam single_r.sam
+python duplicates.py single.sam single_r.sam
