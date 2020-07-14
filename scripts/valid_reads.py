@@ -11,7 +11,7 @@ for line in file:
     line_split = line.split()
     try:
         #check if chromosome number exists in SAM file- shows if read has been mapped or not
-        if len(line_split[2]) > 3:
+        if line_split[2] != '*':
              outfile.write(line)
         else:
              continue
