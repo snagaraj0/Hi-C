@@ -1,4 +1,4 @@
-#  condense sam file
+#  condense sam file into id, chromosome #, positional information, DNA, and directional strand
 awk '{print $1,$3,$4,$2,$5;}' $1 > pair.sam
 
 # Sort according to read id
