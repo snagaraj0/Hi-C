@@ -102,7 +102,7 @@ See sample bowtie.sh file for an example.
 
 ### Validation Scripts
 
-1) Valid_reads.sh/.py- Used to create new SAM files with only mapped reads. Can be used for both paired-end and single-end mapping.
+1) Valid_reads.sh/.py- Used to create new SAM files with only mapped reads. Can only used for single-end mapping.
 
 2) Reorder.sh/.py - Used to create new SAM files that are ordered according to read ID. Can be used for both single-end and paired-end mapping.
 
