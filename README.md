@@ -14,7 +14,7 @@ It is also recommended that you run SparkMap in Linux and on a compute cluster.
 
 To download SparkMap, make sure you have the appropriate permissions and then follow these instructions.
 
-First, download the HiC-Pipeline repository as a tarball and  then untar with the following commands.
+First, download the SparkMap repository as a tarball and  then untar with the following commands.
 
 ```
 wget https://github.com/snagaraj0/SparkMap/tarball/master
