@@ -114,6 +114,10 @@ Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2
 
 Input: Pass input SAM file name and output text file name 
 
+### Misc.
 
-Rename this file after the shell script runs if you would like.
+If you ask for a header for the SAM file, run '''
+awk '!seen[$0]++' filename
+'''
+to eliminate duplicates.
 
