@@ -116,5 +116,5 @@ Input: Pass input SAM file name and output text file name
 
 ### Misc.
 
-If you ask for a header for the SAM file, run  ```awk '!seen[$0]++' filename ``` to eliminate duplicates.
+If you ask for a header for the SAM file, run  ```awk '!seen[$0]++' orig_file_name > new_file_name ``` to eliminate duplicates.
 
