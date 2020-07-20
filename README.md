@@ -78,13 +78,15 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit run.sh file with parameters in the following format:
 
-python SingleSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_sam_file Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
+python SingleSpark.py Full_path_to_fastq_file  Full_path_to_bowtie2_index Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process
 
 See sample run.sh file for an example.
 
 2) Run "chmod +x run.sh" to give permissions
 
 3) Run ./run.sh to run Spark as an interactive process or run "nohup ./run.sh" to run Spark as a background process.
+
+4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
 
 ### Running SparkMap in paired-end mode
@@ -99,6 +101,7 @@ See sample bowtie.sh file for an example.
 
 3) Run ./bowtie.sh to run Spark as an interactive process or run "nohup ./bowtie.sh" to run Spark as a background process.
 
+4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
 ### Validation Scripts
 
