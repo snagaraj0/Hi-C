@@ -80,11 +80,11 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options
 
-See sample run.sh file for an example.
+See sample singlespark.sh file for an example.
 
-2) Run "chmod +x run.sh" to give permissions
+2) Run "chmod +x singlespark.sh" to give permissions
 
-3) Run ./run.sh to run Spark as an interactive process or run "nohup ./run.sh" to run Spark as a background process.
+3) Run ./singlespark.sh to run Spark as an interactive process or run "nohup ./singlespark.sh" to run Spark as a background process.
 
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
@@ -93,13 +93,13 @@ See sample run.sh file for an example.
 
 1) Edit bowtie.sh file with parameters in the following format:
 
-python BowtieSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options
+python pairspark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options
 
-See sample bowtie.sh file for an example.
+See sample pairspark.sh file for an example.
 
-2) Run "chmod +x bowtie.sh" to give permissions
+2) Run "chmod +x pairspark.sh" to give permissions
 
-3) Run ./bowtie.sh to run Spark as an interactive process or run "nohup ./bowtie.sh" to run Spark as a background process.
+3) Run ./pairspark.sh to run Spark as an interactive process or run "nohup ./pairspark.sh" to run Spark as a background process.
 
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
@@ -107,7 +107,9 @@ See sample bowtie.sh file for an example.
 
 1) Valid_reads.sh/.py- Used to create new SAM files with only mapped reads. Can only used for single-end mapping.
 
-2) Reorder.sh/.py - Used to create new SAM files that are ordered according to read ID. Can be used for both single-end and paired-end mapping.
+2) Reorder.sh/.py - Used to create new SAM files that are ordered according to read ID. Can only be used for single-end mapping.
+
+3) Alternatively, use the [SAMtools](http://www.htslib.org/doc/samtools-sort.html) sort to sort by chromosome position or by read number.
 
 ### Interactions shell script usage
 
