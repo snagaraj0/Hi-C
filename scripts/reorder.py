@@ -1,5 +1,5 @@
 #Supplmentary script to order SAM file by ReadID produced by SparkMap
-
+#Only for Single-end mode mapping.
 import sys
 in_file = sys.argv[1]
 delimiter = sys.argv[2]
