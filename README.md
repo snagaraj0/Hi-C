@@ -109,7 +109,7 @@ See sample pairspark.sh file for an example.
 
 Use Interactions.sh for single-end/locally aligned SAM files and CONVERT_pair.sh for paired-end SAM files. These scripts are useful to create  interactions data(Hi-C) in the form:
 
-Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2
+```Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2```
 
 Input: Pass input SAM file name and output text file name 
 
