@@ -58,7 +58,7 @@ Skip this step if you already have a Reference Genome and Fastq/FASTA paired-end
 Input: Can start with an SRA format (if using online data), but convert to Fastq or fasta file types using fastq dump.
 Ex: Fastq-dump --split-files --fasta {Accession #}
 
-Find a genome index online(widely available - bowtie2[https://support.illumina.com/sequencing/sequencing_software/igenome.html], STAR[http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STARgenomes/Human/GRCh38_Ensembl99_sparseD3_sjdbOverhang99/]) as a reference genome or build your own.
+Find a genome index online(widely available - [bowtie2](https://support.illumina.com/sequencing/sequencing_software/igenome.html), [STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STARgenomes/Human/GRCh38_Ensembl99_sparseD3_sjdbOverhang99/)) as a reference genome or build your own.
 
 ### Install your mapper as an executable
 
