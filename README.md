@@ -97,6 +97,9 @@ See sample pairspark.sh file for an example.
 
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
+### Mapper-specific advice
+1) Run STAR aligner with as many executor instances as possible.
+
 ### Validation Scripts
 
 1) Valid_reads.sh/.py- Used to create new SAM files with only mapped reads. Can only used for single-end mapping.
