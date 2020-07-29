@@ -72,7 +72,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit run.sh file with parameters in the following format:
 
-python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options
+python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options Mapper_name
 
 See sample singlespark.sh file for an example.
 
