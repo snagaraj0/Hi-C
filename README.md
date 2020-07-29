@@ -98,7 +98,7 @@ See sample pairspark.sh file for an example.
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
 ### Mapper-specific advice
-1) Run STAR aligner with as many executor instances as possible.
+1) Run STAR aligner with as many executor instances as possible. Set the --runThreadN parameter to the number of cores per executor.
 
 ### Validation Scripts
 
