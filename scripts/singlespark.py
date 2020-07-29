@@ -15,13 +15,14 @@ direc_path = sys.argv[2]
 exec_mem = sys.argv[3]
 driver_mem = sys.argv[4]
 max_cores = sys.argv[5]
-options = sys.argv[6]
+exec_instances = sys.argv[6]
+options = sys.argv[7]
 
 # Uncomment for process timing
 #start = time.time()
 conf = SparkConf().setAppName("SingleSparkAligner")
 conf = conf.set('spark.submit.deploymode', "cluster")
-conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores)
+conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores).set("spark.executor.instances", exec_instances)
 sc = SparkContext.getOrCreate(conf=conf)
 
 logging.basicConfig(filename='singlespark.log', filemode='w', level=logging.INFO)
