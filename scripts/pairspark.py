@@ -19,10 +19,7 @@ max_cores = sys.argv[6]
 exec_instances = sys.argv[7]
 options = sys.argv[8]
 
-logging.basicConfig(filename='pair.log', filemode='w', level=logging.INFO)
-
-#Uncomment to document time
-#start = time.time()
+logging.basicConfig(filename='pairspark.log', filemode='w', level=logging.INFO)
 conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
 conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores).set("spark.executor.instances", exec_instances)
@@ -49,28 +46,38 @@ print(input_file)
 input_file1 = "hdfs:/user/data/" + end_o_input
 print(input_file1)
 
-# label each line with its positional number
-text_input = (sc.textFile(input_file)).zipWithIndex()
-text_input1 = (sc.textFile(input_file1)).zipWithIndex()
-test = text_input.take(10)
-logging.info(test)
+#Uncomment to document time
+#start = time.time()
+# create key-value pair with (read on line, line number)
+zipped_input = (sc.textFile(input_file)).zipWithIndex()
+zipped_input1 = (sc.textFile(input_file1)).zipWithIndex()
 
-# map every 4 strings under the same read number
-map_text_input = text_input.map(lambda read: (math.floor(read[1]/4), read[0]))
-map_text_input1 = text_input1.map(lambda read: (math.floor(read[1]/4), read[0]))
-test = map_text_input.take(20)
-logging.info(test)
+add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
+add1 = zipped_input1.keyBy(lambda x: math.floor(x[1]/4))
 
-logging.info(test)
+logging.info("Zipped FastQ 1", add.takeOrdered(4))
+logging.info("Zipped FastQ 2", add1.takeOrdered(4))
 
-combineRDD = reads.join(reads1)
-test = combineRDD.take(20)
-logging.info(test)
+add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
+add1 = zipped_input1.keyBy(lambda x: math.floor(x[1]/4))
 
-# Sort by the line number and then grab all the values associated with that line number
-val_combineRDD = combineRDD.sortByKey().values()
-test = val_combineRDD.first()
-logging.info(test)
+# Combine all strings with the same key together 
+def joining_func(line):
+    sort_tup = sorted(line[1], key = lambda x: x[1])
+    return (line[0],'\n'.join([y[0] for y in sort_tup]))
+
+rdd_add = add.groupByKey().map(joining_func)
+rdd_add1 = add1.groupByKey().map(joining_func)
+
+#Join (key, value) pairs for both mates together
+combineRDD = rdd_add.join(rdd_add1)
+logging.info("Joined FastQ zips", combineRDD.takeOrdered(8))
+rdd_add.unpersist()
+rdd_add1.unpersist()
+
+#Map Paired-end mates together into one entry
+combinedRDD = combineRDD.mapValues(lambda x: x[0] + "\n"+ x[1]).values()
+logging.info(combineRDD.take(20))
 
 #starts mapper with parameters to index and options.
 try:
@@ -79,9 +86,7 @@ except:
   print("Could not perform mapping. Check syntax of mapper options")
 
 logging.info(alignment_pipe.take(20))
-
-check=alignment_pipe.getNumPartitions()
-logging.info("Number of partitions:" + str(check))
+logging.info("Number of partitions:" + str(alignment_pipe.getNumPartitions()))
 
 # Write partitions to SAM file
 alignment_pipe.saveAsTextFile(direc_path)
