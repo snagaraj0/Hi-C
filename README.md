@@ -1,10 +1,13 @@
 # SparkMap
+A novel framework to speed up short read alignment using Apache Spark.
+Currently we support:
+- Any mapper that can be installed as a local executable and read input through stdin, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [STAR](https://physiology.med.cornell.edu/faculty/skrabanek/lab/angsd/lecture_notes/STARmanual.pdf), or [HISAT2](http://daehwankimlab.github.io/hisat2/download/) for single-end mapping
+- Any mapper that can be installed as a local executable and read input through stdin and supports interleaved fastq files for paired-end mapping, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 
+SparkMap has been tested on STAR, TopHat, Bowtie2, and HISAT2.
 ## Installation
 
 SparkMap requires the following dependencies to run:
-- Any mapper that can be installed as a local executable and read input through stdin, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) for single-end mapping
-- Any mapper that can be installed as a local executable and read input through stdin and supports interleaved fastq files for paired-end mapping
 - Python 3.7 with numpy(> 1.16.4), progressbar2(>3.50.1) , pydoop( > 2.0.0), py4j(> 0.10.7), pyinstaller(>3.6), python-utils(>2.4.0)
 - Apache Spark ( > 2.4.3) with findspark( > 1.3.0)
 - Hadoop (> 3.1.2)
