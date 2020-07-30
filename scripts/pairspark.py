@@ -73,7 +73,7 @@ test = val_combineRDD.first()
 logging.info(test)
 
 #starts bowtie with parameters to bowtie index.
-alignment_pipe = combinedRDD.pipe(bowtie_exec + "bowtie2 " + options + " -x " + bowtie_index + " --interleaved " + " -") 
+alignment_pipe = combinedRDD.pipe(options) 
 test = alignment_pipe.take(20)
 logging.info(test)
 
