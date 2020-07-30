@@ -19,8 +19,6 @@ exec_instances = sys.argv[6]
 options = sys.argv[7]
 star_true = sys.argv[8]
 
-# Uncomment for process timing
-#start = time.time()
 conf = SparkConf().setAppName("SingleSparkAligner")
 conf = conf.set('spark.submit.deploymode', "cluster")
 conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores).set("spark.executor.instances", exec_instances)
@@ -30,6 +28,7 @@ logging.basicConfig(filename='singlespark.log', filemode='w', level=logging.INFO
 logging.getLogger().setLevel(logging.INFO)
 logging.info(sc.getConf().getAll())
 
+subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user"])
 subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user/data"])
 subprocess.call(["hdfs", "dfs", "-put", fq_input, "/user/data" ])
 
@@ -43,6 +42,8 @@ end_input = fq_input[test_len]
 input_file = "hdfs:/user/data/" + end_input
 print(input_file)
 
+# Uncomment for process timing
+#start = time.time()
 # create key-value pair with (read on line, line number)
 zipped_input = (sc.textFile(input_file)).zipWithIndex()
 
@@ -55,15 +56,12 @@ if star_true == "STAR":
 
 # Combine all strings with the same key together
 def joining_func(line):
-    key = line[0]
-    value_tup = line[1]
-    sort_tup = sorted(value_tup, key = lambda x: x[1])
+    sort_tup = sorted(line[1], key = lambda x: x[1])
     return '\n'.join([y[0] for y in sort_tup])
 
 #Group all lines with the same Key and join them together by their original position in the file
 rdd_add = add.groupByKey().map(joining_func)
 logging.info("Grouped and Joined Output", rdd_add.takeOrdered(4))
-
 
 #starts mapper with parameters to index and options.
 try:
