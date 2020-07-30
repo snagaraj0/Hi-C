@@ -17,6 +17,7 @@ driver_mem = sys.argv[4]
 max_cores = sys.argv[5]
 exec_instances = sys.argv[6]
 options = sys.argv[7]
+star_true = sys.argv[8]
 
 # Uncomment for process timing
 #start = time.time()
@@ -48,6 +49,10 @@ zipped_input = (sc.textFile(input_file)).zipWithIndex()
 add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
 logging.info("Zipped Output", add.takeOrdered(4))
 
+instances = int(exec_instances)
+if star_true == "STAR":
+    add = add.coalesce(instances)
+
 # Combine all strings with the same key together
 def joining_func(line):
     key = line[0]
@@ -59,7 +64,8 @@ def joining_func(line):
 rdd_add = add.groupByKey().map(joining_func)
 logging.info("Grouped and Joined Output", rdd_add.takeOrdered(4))
 
-#starts bowtie with parameters to bowtie index.
+
+#starts mapper with parameters to index and options.
 alignment_pipe = rdd_add.pipe(options)
 logging.info("Mapper Output", alignment_pipe.take(4))
 
