@@ -25,7 +25,7 @@ conf = SparkConf().setAppName("SingleSparkAligner")
 conf = conf.set('spark.submit.deploymode', "cluster")
 conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores).set("spark.executor.instances", exec_instances)
 sc = SparkContext.getOrCreate(conf=conf)
-
+sc.setLogLevel("ERROR")
 logging.basicConfig(filename='singlespark.log', filemode='w', level=logging.INFO)
 logging.getLogger().setLevel(logging.INFO)
 logging.info(sc.getConf().getAll())
