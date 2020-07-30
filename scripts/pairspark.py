@@ -16,7 +16,8 @@ direc_path = sys.argv[3]
 exec_mem = sys.argv[4]
 driver_mem = sys.argv[5]
 max_cores = sys.argv[6]
-options = sys.argv[7]
+exec_instances = sys.argv[7]
+options = sys.argv[8]
 
 logging.basicConfig(filename='pair.log', filemode='w', level=logging.INFO)
 
@@ -24,8 +25,9 @@ logging.basicConfig(filename='pair.log', filemode='w', level=logging.INFO)
 #start = time.time()
 conf = SparkConf().setAppName("SparkHDFSTEST")
 conf = conf.set('spark.submit.deploymode', "cluster")
-conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores)
+conf = conf.set('spark.executor.memory', exec_mem).set('spark.driver.memory', driver_mem).set("spark.cores.max", max_cores).set("spark.executor.instances", exec_instances)
 sc = SparkContext.getOrCreate(conf=conf)
+sc.setLogLevel("ERROR")
 logging.info(sc.getConf().getAll())
 
 subprocess.call(["hdfs", "dfs", "-mkdir", "-p", "/user"])
