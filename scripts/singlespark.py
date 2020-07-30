@@ -47,7 +47,7 @@ print(input_file)
 zipped_input = (sc.textFile(input_file)).zipWithIndex()
 
 add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
-logging.info("Zipped Output", add.takeOrdered(4))
+logging.info("Zipped FastQ", add.takeOrdered(4))
 
 instances = int(exec_instances)
 if star_true == "STAR":
