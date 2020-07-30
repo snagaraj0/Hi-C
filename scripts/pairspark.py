@@ -78,14 +78,16 @@ try:
 except:
   print("Could not perform mapping. Check syntax of mapper options")
 
-test = alignment_pipe.take(20)
-logging.info(test)
+logging.info(alignment_pipe.take(20))
 
 check=alignment_pipe.getNumPartitions()
 logging.info("Number of partitions:" + str(check))
 
 # Write partitions to SAM file
+alignment_pipe.saveAsTextFile(direc_path)
 
-end = time.time()
-logging.info("Runtime: " + str(end-start))
+#Uncomment for process timing
+#
+#end = time.time()
+#logging.info("Runtime: " + str(end-start))
 sc.stop()
