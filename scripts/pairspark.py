@@ -72,8 +72,12 @@ val_combineRDD = combineRDD.sortByKey().values()
 test = val_combineRDD.first()
 logging.info(test)
 
-#starts bowtie with parameters to bowtie index.
-alignment_pipe = combinedRDD.pipe(options) 
+#starts mapper with parameters to index and options.
+try:
+  alignment_pipe = combinedRDD.pipe(options)
+except:
+  print("Could not perform mapping. Check syntax of mapper options")
+
 test = alignment_pipe.take(20)
 logging.info(test)
 
