@@ -66,7 +66,10 @@ logging.info("Grouped and Joined Output", rdd_add.takeOrdered(4))
 
 
 #starts mapper with parameters to index and options.
-alignment_pipe = rdd_add.pipe(options)
+try:
+    alignment_pipe = rdd_add.pipe(options)
+except:
+    print("Could not perform mapping. Check syntax of mapper options")
 logging.info("Mapper Output", alignment_pipe.take(4))
 
 logging.info("Number of Partitions:", alignment_pipe.getNumPartitions())
