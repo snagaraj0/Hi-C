@@ -75,7 +75,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options Mapper_name
+python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process executor_instances Mapper_specific_options Mapper_name
 
 See sample singlespark.sh file for an example.
 
@@ -90,7 +90,7 @@ See sample singlespark.sh file for an example.
 
 1) Edit pairspark.sh file with parameters in the following format:
 
-python pairspark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process Mapper_specific_options
+python pairspark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process executor_instances Mapper_specific_options
 
 See sample pairspark.sh file for an example.
 
@@ -100,8 +100,8 @@ See sample pairspark.sh file for an example.
 
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
-### Mapper-specific advice
-1) Run STAR aligner with as many executor instances as possible. Set the --runThreadN parameter to the number of cores per executor.
+### Optimization
+In order to achieve the best performance, it is recommended to increase the number of executors instances you run, but keeping the amount of threads you specify in the mapper options above 1. For example, with a cluster with 165 cores across 3 nodes, an optimized run might have 55 executor instances with 3 threads specified in the mapper options. Take a look at this article for more information: https://spoddutur.github.io/spark-notes/distribution_of_executors_cores_and_memory_for_spark_application.html
 
 ### Validation Scripts
 
