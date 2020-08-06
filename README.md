@@ -101,7 +101,7 @@ See sample pairspark.sh file for an example.
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
 ### Optimization
-In order to achieve the best performance, it is recommended to increase the number of executors instances you run, but keeping the amount of threads you specify in the mapper options above 1. For example, with a cluster with 165 cores across 3 nodes, an optimized run might have 55 executor instances with 3 threads specified in the mapper options. Take a look at this article for more information: https://spoddutur.github.io/spark-notes/distribution_of_executors_cores_and_memory_for_spark_application.html
+In order to achieve the best performance, it is recommended to increase the number of executors instances you run, but keeping the amount of threads you specify in the mapper options as close to 1 as possible. 
 
 ### Validation Scripts
 
