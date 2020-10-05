@@ -63,7 +63,7 @@ Skip this step if you already have a Reference Genome and Fastq/FASTA paired-end
 Input: Can start with an SRA format (if using online data), but convert to the FastQ file type using fastq dump.
 Ex: Fastq-dump --split-files --fasta {Accession #}
 
-Find a genome index online(widely available - [bowtie2](https://support.illumina.com/sequencing/sequencing_software/igenome.html), [STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STARgenomes/Human/GRCh38_Ensembl99_sparseD3_sjdbOverhang99/)) as a reference genome or build your own.
+Find a genome index online(widely available - [bowtie2](https://support.illumina.com/sequencing/sequencing_software/igenome.html), as a reference genome or build your own.
 
 ### Install your mapper as an executable
 
@@ -77,7 +77,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process executor_instances Mapper_specific_options Mapper_name
+python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process executor_instances Mapper_specific_options 
 
 See sample singlespark.sh file for an example.
 
