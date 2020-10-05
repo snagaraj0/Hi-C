@@ -55,7 +55,7 @@ Add these user specific configurations to your .bashrc
 
 
 
-## USAGE GUIDELINES
+## Usage Guidelines
 
 ### Getting a Reference Genome and Fastq/FASTA files
 
