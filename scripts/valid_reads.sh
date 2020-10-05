@@ -1,1 +1,1 @@
-python duplicates.py single.sam single_r.sam
+python valid_reads.py single.sam single_r.sam
