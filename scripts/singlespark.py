@@ -17,7 +17,6 @@ driver_mem = sys.argv[4]
 max_cores = sys.argv[5]
 exec_instances = sys.argv[6]
 options = sys.argv[7]
-star_true = sys.argv[8]
 
 conf = SparkConf().setAppName("SingleSparkAligner")
 conf = conf.set('spark.submit.deploymode', "cluster")
@@ -49,10 +48,6 @@ zipped_input = (sc.textFile(input_file)).zipWithIndex()
 
 add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
 logging.info("Zipped FastQ", add.takeOrdered(4))
-
-instances = int(exec_instances)
-if star_true == "STAR":
-    add = add.coalesce(instances)
 
 # Combine all strings with the same key together
 def joining_func(line):
