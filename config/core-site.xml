@@ -1,1 +1,13 @@
+<configuration>
+<property>
+<name>fs.default.name</name>
+<value>hdfs://LOCAL-ADDRESS:PORT</value>
+</property>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/tmp/hadoop/tmp</value>
+</property>
+</configuration>
+
+
 
