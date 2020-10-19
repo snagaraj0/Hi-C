@@ -42,7 +42,7 @@ input_file = "hdfs:/user/data/" + end_input
 print(input_file)
 
 # Uncomment for process timing
-#start = time.time()
+start = time.time()
 # create key-value pair with (read on line, line number)
 zipped_input = (sc.textFile(input_file)).zipWithIndex()
 
@@ -72,8 +72,8 @@ logging.info("Number of Reads:", alignment_pipe.count())
 alignment_final.saveAsTextFile(direc_path)
 
 #Uncomment if you want to record process timing
-#end = time.time()
-#temp_file = open("time.txt", 'a+')
-#temp_file.write("Runtime: " + str(end-start))
-#temp_file.close()
+end = time.time()
+temp_file = open("time.txt", 'w+')
+temp_file.write("Runtime: " + str(end-start))
+temp_file.close()
 sc.stop()
