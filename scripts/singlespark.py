@@ -73,7 +73,5 @@ alignment_final.saveAsTextFile(direc_path)
 
 #Uncomment if you want to record process timing
 end = time.time()
-temp_file = open("time.txt", 'w+')
-temp_file.write("Runtime: " + str(end-start))
-temp_file.close()
+logging.info("Runtime: " + str(end-start))
 sc.stop()
