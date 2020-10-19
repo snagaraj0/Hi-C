@@ -77,7 +77,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-python SingleSpark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process executor_instances Mapper_specific_options 
+python SingleSpark.py full_path_to_sam_directory memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options 
 
 See sample singlespark.sh file for an example.
 
@@ -92,7 +92,7 @@ See sample singlespark.sh file for an example.
 
 1) Edit pairspark.sh file with parameters in the following format:
 
-python pairspark.py Full_path_to_sam_directory Memory_to_Executor(in GB) Driver_Memory(in GB) Max_cores_for_process executor_instances Mapper_specific_options
+python pairspark.py full_path_to_sam_directory memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options
 
 See sample pairspark.sh file for an example.
 
@@ -102,8 +102,9 @@ See sample pairspark.sh file for an example.
 
 4) Go into your local output directory and run ``` cat * > combined_sam_file ``` to combine the blocks into a single file.
 
-### Optimization
-In order to achieve the best performance, it is recommended to increase the number of executors instances you run, but keeping the amount of threads you specify in the mapper options as close to 1 as possible. Also keep in mind, that the number of executor instances * amount of threads in mapper options should equal the total number of cores provided to Spark. For smaller numbers of cores, you can set the number of executor instances equal to the total number of cores and amount of threads in mapper options to 1, but for a larger number of total cores(100+), set the amount of threads in mapper options to 2 or 3.
+### Optimization of Spark Settings
+
+We recommend this guide to optimize your run configurations: https://spoddutur.github.io/spark-notes/distribution_of_executors_cores_and_memory_for_spark_application.html
 
 ### Validation Scripts
 
