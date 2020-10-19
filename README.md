@@ -17,10 +17,9 @@ It is also recommended that you run SparkMap in Linux and on a compute cluster.
 
 To download SparkMap, make sure you have the appropriate permissions and then follow these instructions.
 
-First, download the SparkMap repository as a zip file and unzip it with the following commands.
+First, download the SparkMap repository as a zip file and unzip it with the following command.
 
 ```
-wget https://github.com/snagaraj0/SparkMap/master
 unzip SparkMap.zip
 ```
 
