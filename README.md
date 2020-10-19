@@ -81,13 +81,19 @@ In order to use Hadoop Distributed File System(HDFS), run start-all.sh in the $H
 
 Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory to start the Spark master and all Spark workers.
 
+### Mapper-Specific Options
+
+
+
 ### Running SparkMap in single-end mode
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-python SingleSpark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options 
+   python SingleSpark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options 
 
-See sample singlespark.sh file for an example.
+   An example
+   
+   See sample run file in scripts/singlespark.sh file for further examples.
 
 2) Run "chmod +x singlespark.sh" to give permissions
 
@@ -100,9 +106,9 @@ See sample singlespark.sh file for an example.
 
 1) Edit pairspark.sh file with parameters in the following format:
 
-python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options
+   python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB)          max_cores_for_process executor_instances mapper_specific_options
 
-See sample pairspark.sh file for an example.
+   See sample run file in scripts/pairspark.sh for an example.
 
 2) Run "chmod +x pairspark.sh" to give permissions
 
