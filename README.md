@@ -4,7 +4,7 @@ Currently we support:
 - [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [BBMAP](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/), and [HISAT2](http://daehwankimlab.github.io/hisat2/download/) for single-end mapping
 - [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) for paired-end mapping
 
-SparkMap has been tested on STAR, TopHat, Bowtie2, and HISAT2.
+SparkMap can also function with TopHat and works with STAR when large numbers of cores are available.*
 ## Installation
 
 SparkMap requires the following dependencies to run:
@@ -132,3 +132,4 @@ Input: Pass input SAM file name and output text file name
 
 If you ask for a header for the SAM file, run  ```awk '!seen[$0]++' orig_file_name > new_file_name ``` to eliminate duplicate headers. However, we recommend generating the header separately and joining it to the mapping file as this is faster.
 
+*If you are using STAR with SparkMap, make sure to set the number of executor instances equal to the number of machines/nodes that you have on your computer cluster.
