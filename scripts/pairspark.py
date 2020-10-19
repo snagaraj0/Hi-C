@@ -47,7 +47,7 @@ input_file1 = "hdfs:/user/data/" + end_o_input
 print(input_file1)
 
 #Uncomment to document time
-#start = time.time()
+start = time.time()
 # create key-value pair with (read on line, line number)
 zipped_input = (sc.textFile(input_file)).zipWithIndex()
 zipped_input1 = (sc.textFile(input_file1)).zipWithIndex()
@@ -93,6 +93,6 @@ alignment_pipe.saveAsTextFile(direc_path)
 
 #Uncomment for process timing
 #
-#end = time.time()
-#logging.info("Runtime: " + str(end-start))
+end = time.time()
+logging.info("Runtime: " + str(end-start))
 sc.stop()
