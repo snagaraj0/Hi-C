@@ -1,8 +1,8 @@
 # SparkMap
 A novel framework to speed up short read alignment using Apache Spark.
 Currently we support:
-- Any mapper that can be installed as a local executable and read input through stdin, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [STAR](https://physiology.med.cornell.edu/faculty/skrabanek/lab/angsd/lecture_notes/STARmanual.pdf), or [HISAT2](http://daehwankimlab.github.io/hisat2/download/) for single-end mapping
-- Any mapper that can be installed as a local executable and read input through stdin and supports interleaved fastq files for paired-end mapping, such as [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+- [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [BBMAP](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/), and [HISAT2](http://daehwankimlab.github.io/hisat2/download/) for single-end mapping
+- [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) for paired-end mapping
 
 SparkMap has been tested on STAR, TopHat, Bowtie2, and HISAT2.
 ## Installation
@@ -17,10 +17,17 @@ It is also recommended that you run SparkMap in Linux and on a compute cluster.
 
 To download SparkMap, make sure you have the appropriate permissions and then follow these instructions.
 
-First, download the SparkMap repository as a zip file and unzip it with the following command.
+First, download the SparkMap repository as a zip file. If needed, send the zip file from your local machine to your computer cluster using scp:
 
 ```
-unzip SparkMap.zip
+scp /path/to/SparkMap-master.zip username@IP:/path/to/directory
+
+```
+
+Unzip it with the following command.
+
+```
+unzip SparkMap-master.zip
 ```
 
 Next, configure your system to make the dependencies accessible.
