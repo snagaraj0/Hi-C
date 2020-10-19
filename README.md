@@ -120,7 +120,7 @@ We recommend this guide to optimize your run configurations: https://spoddutur.g
 
 3) Alternatively, use the [SAMtools](http://www.htslib.org/doc/samtools-sort.html) sort to sort by chromosome position or by read number.
 
-### Interactions shell script usage
+### Hi-C shell script usage
 
 Use Interactions.sh for single-end/locally aligned SAM files and CONVERT_pair.sh for paired-end SAM files. These scripts are useful to create  interactions data(Hi-C) in the form:
 
