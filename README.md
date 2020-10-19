@@ -32,6 +32,9 @@ unzip SparkMap-master.zip
 
 Next, configure your system to make the dependencies accessible. You can either install the dependencies system-wide or through [Pipenv](https://thoughtbot.com/blog/how-to-manage-your-python-projects-with-pipenv).
 
+## Configuration Information
+
+
 First, download Hadoop and Spark, if you have not done so already. We recommend this guide for Spark installation: https://www.linode.com/docs/databases/hadoop/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/ and this guide for Hadoop installation: https://www.linode.com/docs/databases/hadoop/how-to-install-and-set-up-hadoop-cluster/.
 
 Add these user specific configurations to your .bash_profile.
@@ -58,7 +61,6 @@ Add these user specific configurations to your .bashrc
 | HADOOP_HDFS_HOME  | $HADOOP_HOME                                                                  |                        
 | YARN_HOME         | $HADOOP_HOME                                                                  |                                     
 | HADOOP_HOME       | PATH TO HADOOP INSTALLTION                                                    |
-
 
 
 ## Usage Guidelines
