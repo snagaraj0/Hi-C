@@ -83,7 +83,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-python SingleSpark.py full_path_to_sam_directory memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options 
+python SingleSpark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options 
 
 See sample singlespark.sh file for an example.
 
@@ -98,7 +98,7 @@ See sample singlespark.sh file for an example.
 
 1) Edit pairspark.sh file with parameters in the following format:
 
-python pairspark.py full_path_to_sam_directory memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options
+python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances mapper_specific_options
 
 See sample pairspark.sh file for an example.
 
