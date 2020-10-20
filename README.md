@@ -130,7 +130,7 @@ We recommend this guide to optimize your run configurations: https://spoddutur.g
 
 ### Hi-C shell script usage
 
-Use Interactions.sh for single-end/locally aligned SAM files and CONVERT_pair.sh for paired-end SAM files. These scripts are useful to create  interactions data(Hi-C) in the form:
+Use interactions.sh for single-end/locally aligned SAM files and interactions_pair.sh for paired-end SAM files. These scripts are useful to create  interactions data(Hi-C) in the form:
 
 ```Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2```
 
