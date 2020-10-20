@@ -76,7 +76,7 @@ logging.info("Number of Partitions:", alignment_pipe.getNumPartitions())
 logging.info("Number of Reads:", alignment_pipe.count())
 
 #Collecting output and maintaining parallelization while writing to local file
-alignment_final.saveAsTextFile(direc_path)
+alignment_pipe.saveAsTextFile(direc_path)
 
 #Uncomment if you want to record process timing
 end = time.time()
