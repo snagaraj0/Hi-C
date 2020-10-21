@@ -151,6 +151,6 @@ Input: Pass input SAM file name and output text file name
 
 ### Important Misc. Information
 
-If you ask for a header for the SAM file, run  ```awk '!seen[$0]++' orig_file_name > new_file_name ``` to eliminate duplicate headers. Do this BEFORE running any further analyses or you will receive errors. However, we recommend generating the header separately and joining it to the mapping file as this is faster.
+If you ask for a header in your mapper specific options, run  ```awk '!seen[$0]++' orig_file_name > new_file_name ``` to eliminate duplicate headers. Do this BEFORE running any further analyses or you will receive errors. However, we recommend generating the header separately and joining it to the mapping file as this is faster.
 
 *If you are using STAR with SparkMap, make sure to set the number of executor instances equal to the number of machines/nodes that you have on your computer cluster.
