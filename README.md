@@ -84,6 +84,9 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 ### Mapper-Specific Options
 
+Please look at the mapper-specific manuals (linked above) for specific mapper syntax.
+
+However, all mappers should be run with configurations to accept input through STDIN and output their reads to STDOUT. They should also be run locally as an executable and explicitly specify the number of parallel search threads needing to be launched. 
 
 
 ### Running SparkMap in single-end mode
@@ -119,7 +122,7 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 ### Optimization of Spark Settings
 
-We recommend this guide to optimize your run configurations: https://spoddutur.github.io/spark-notes/distribution_of_executors_cores_and_memory_for_spark_application.html
+We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers of cores(< 100) performance was optimized with 2-3 parallel search threads in the mapper-specific options. At larger numbers of cores(> 100), we found that 1-2 parallel search threads worked optimally.
 
 ### Validation Scripts
 
