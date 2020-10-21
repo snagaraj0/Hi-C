@@ -97,11 +97,13 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-   python singlespark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options 
+   python singlespark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options mapper_type 
+   
+   NOTE: If you are using BBMAP, make sure to specify an additional parameter which indicates the maximum number of partitions you would like to use for your run. This is needed      because BBMAP is RAM intensive and so a machine may run out of RAM if mapping is done on a large dataset with a large number of partitions. For reference, on a 165 core-          system/55 cores per worker node with 250 GB of free RAM per machine, a maximum of 30 partitions could be utilized on a 60 GB dataset.
    
    Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
-
-   Example: python singlespark.py /s1/snagaraj/project_env/SRR639031_1.fastq file:///s1/snagaraj/output/single 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 50 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome -" 
+   
+   Example: python singlespark.py /s1/snagaraj/project_env/SRR639031_1.fastq file:/s1/snagaraj/output/single 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 50 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome -" 
    
    See sample run file in scripts/singlespark.sh file for further examples.
 
@@ -120,7 +122,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
    
    Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
    
-   Example: python pairspark.py /s1/snagaraj/project_env/SRR639031_1.fastq /s1/snagaraj/project_env/SRR639031_2.fastq file:///s1/snagaraj/output/pair 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 2 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome --interleaved -"
+   Example: python pairspark.py /s1/snagaraj/project_env/SRR639031_1.fastq /s1/snagaraj/project_env/SRR639031_2.fastq file:/s1/snagaraj/output/pair 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 2 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome --interleaved -"
 
 
 2) Run "chmod +x pairspark.sh" to give permissions
