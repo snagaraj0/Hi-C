@@ -42,14 +42,14 @@ input_file = "hdfs:/user/data/" + end_input
 print(input_file)
 
 # Uncomment for process timing
-#start = time.time()
+start = time.time()
 # create key-value pair with (read on line, line number)
 zipped_input = (sc.textFile(input_file)).zipWithIndex()
 
 add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
 temp = add.takeOrdered(4)
 str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
-logging.info("Zipped FastQ %s" % (str_temp))
+logging.info("Zipped FastQ \n%s" % (str_temp))
 
 # Combine all strings with the same key together
 def joining_func(line):
@@ -60,7 +60,7 @@ def joining_func(line):
 rdd_add = add.groupByKey().map(joining_func)
 temp = rdd_add.takeOrdered(4)
 str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
-logging.info("Grouped and Joined Output %s" % (str_temp))
+logging.info("Grouped and Joined Output \n%s" % (str_temp))
 
 #starts mapper with parameters to index and options.
 try:
@@ -70,7 +70,7 @@ except:
 
 temp = alignment_pipe.take(4)
 str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
-logging.info("Mapper Output %s" % (str_temp))
+logging.info("SAM Output \n%s" % (str_temp))
 
 logging.info("Number of Partitions:", alignment_pipe.getNumPartitions())
 logging.info("Number of Reads:", alignment_pipe.count())
