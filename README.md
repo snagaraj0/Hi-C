@@ -62,6 +62,7 @@ Add these user specific configurations to your .bashrc
 | YARN_HOME         | $HADOOP_HOME                                                                  |                                     
 | HADOOP_HOME       | PATH TO HADOOP INSTALLTION                                                    |
 
+Check out a full listing of Spark configurations here: https://spark.apache.org/docs/latest/configuration.html
 
 The config directory should only be used as a supplementary resource to edit config files in your $HADOOP_HOME/etc/hadoop directory and your $SPARK_HOME/conf directory.
 
@@ -96,9 +97,11 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-   python SingleSpark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options 
+   python singlespark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options 
+   
+   Make sure that the full_path_to_sam_output_directory contains the prefix file:///. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
 
-   An example
+   Example: python singlespark.py /s1/snagaraj/project_env/SRR639031_1.fastq file:///s1/snagaraj/output/single 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 50 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome -" 
    
    See sample run file in scripts/singlespark.sh file for further examples.
 
@@ -114,8 +117,11 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 1) Edit pairspark.sh file with parameters in the following format:
 
    python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB)          max_cores_for_process executor_instances mapper_specific_options
+   
+   Make sure that the full_path_to_sam_output_directory contains the prefix file:///. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
+   
+   Example: python pairspark.py /s1/snagaraj/project_env/SRR639031_1.fastq /s1/snagaraj/project_env/SRR639031_2.fastq file:///s1/snagaraj/output/pair 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 2 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome --interleaved -"
 
-   See sample run file in scripts/pairspark.sh for an example.
 
 2) Run "chmod +x pairspark.sh" to give permissions
 
@@ -125,7 +131,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
 ### Optimization of Spark Settings
 
-We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers of cores(< 100) performance was optimized with 2-3 parallel search threads in the mapper-specific options. At larger numbers of cores(> 100), we found that 1-2 parallel search threads worked optimally. If you are familiar wiht Spark, you can also edit your spark-defaults.conf file and specify the spark.executor.cores parameter for further optimization.
+We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers of cores(< 100) performance was optimized with 2-3 parallel search threads in the mapper-specific options. At larger numbers of cores(> 100), we found that 1-2 parallel search threads worked optimally. If you are familiar with Spark, you can also edit your spark-defaults.conf file and specify the spark.executor.cores parameter for further optimization.
 
 ### Validation Scripts
 
