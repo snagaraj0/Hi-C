@@ -54,9 +54,13 @@ zipped_input1 = (sc.textFile(input_file1)).zipWithIndex()
 
 add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
 add1 = zipped_input1.keyBy(lambda x: math.floor(x[1]/4))
+temp = add.takeOrdered(4)
+str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
+logging.info("Zipped FastQ mate 1 \n%s" % (str_temp))
+temp = add1.takeOrdered(4)
+str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
+logging.info("Zipped FastQ mate 2 \n%s" % (str_temp))
 
-logging.info("Zipped FastQ 1", add.takeOrdered(4))
-logging.info("Zipped FastQ 2", add1.takeOrdered(4))
 
 add = zipped_input.keyBy(lambda x: math.floor(x[1]/4))
 add1 = zipped_input1.keyBy(lambda x: math.floor(x[1]/4))
@@ -71,13 +75,19 @@ rdd_add1 = add1.groupByKey().map(joining_func)
 
 #Join (key, value) pairs for both mates together
 combineRDD = rdd_add.join(rdd_add1)
-logging.info("Joined FastQ zips", combineRDD.takeOrdered(8))
+temp = combineRDD.takeOrdered(8)
+str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
+logging.info("Combine FastQ mates \n%s" % (str_temp))
+
 rdd_add.unpersist()
 rdd_add1.unpersist()
 
 #Map Paired-end mates together into one entry
 combinedRDD = combineRDD.mapValues(lambda x: x[0] + "\n"+ x[1]).values()
-logging.info(combineRDD.take(20))
+combineRDD = rdd_add.join(rdd_add1)
+temp = combinedRDD.take(4)
+str_temp = ("\n".join([",".join(map(str, item)) for item in temp]))
+logging.info("Mate output \n%s" % (str_temp))
 
 #starts mapper with parameters to index and options.
 try:
@@ -86,7 +96,7 @@ except:
   print("Could not perform mapping. Check syntax of mapper options")
 
 logging.info(alignment_pipe.take(20))
-logging.info("Number of partitions:" + str(alignment_pipe.getNumPartitions()))
+logging.info("Number of partitions: %s" % (str(alignment_pipe.getNumPartitions())))
 
 # Write partitions to SAM file
 alignment_pipe.saveAsTextFile(direc_path)
