@@ -22,7 +22,6 @@ First, download the SparkMap repository as a zip file. If needed, send the zip f
 
 ```
 scp /path/to/SparkMap-master.zip username@IP:/path/to/directory
-
 ```
 
 Unzip it with the following command.
@@ -64,6 +63,8 @@ Add these user specific configurations to your .bashrc
 | HADOOP_HOME       | PATH TO HADOOP INSTALLTION                                                    |
 
 
+The config directory should only be used as a supplementary resource to edit config files in your $HADOOP_HOME/etc/hadoop directory and your $SPARK_HOME/conf directory.
+
 ## Usage Guidelines
 
 ### Getting a Reference Genome and Fastq/FASTA files
@@ -86,8 +87,10 @@ Start the Spark Driver by running start-all.sh in the $SPARK_HOME/sbin directory
 
 Please look at the mapper-specific manuals (linked above) for specific mapper syntax.
 
-However, all mappers should be run with configurations to accept input through STDIN and output their reads to STDOUT. They should also be run locally as an executable and explicitly specify the number of parallel search threads needing to be launched. 
+However, all mappers should be run with configurations to accept input through STDIN and output their reads to STDOUT. They should also be run locally as an executable and explicitly specify the number of parallel search threads needing to be launched. To run paired-end mapping, please remember to specify interleaved FASTQ input for your mapper.
 
+If you are running Bowtie2 or HISAT2, please explicitly specify the number of parallel search threads using the -p flag.
+If you are using BBMAP, please remember to explicitly specify the number of search threads, the java minimum and maximum heap space, the build type, and the path to your prebuilt index. This means that running BBMAP involves creation of the genome index beforehand rather than in-memory.
 
 ### Running SparkMap in single-end mode
 
@@ -122,7 +125,7 @@ However, all mappers should be run with configurations to accept input through S
 
 ### Optimization of Spark Settings
 
-We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers of cores(< 100) performance was optimized with 2-3 parallel search threads in the mapper-specific options. At larger numbers of cores(> 100), we found that 1-2 parallel search threads worked optimally.
+We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers of cores(< 100) performance was optimized with 2-3 parallel search threads in the mapper-specific options. At larger numbers of cores(> 100), we found that 1-2 parallel search threads worked optimally. If you are familiar wiht Spark, you can also edit your spark-defaults.conf file and specify the spark.executor.cores parameter for further optimization.
 
 ### Validation Scripts
 
