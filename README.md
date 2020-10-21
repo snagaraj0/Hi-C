@@ -99,7 +99,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
    python singlespark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options 
    
-   Make sure that the full_path_to_sam_output_directory contains the prefix file:///. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
+   Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
 
    Example: python singlespark.py /s1/snagaraj/project_env/SRR639031_1.fastq file:///s1/snagaraj/output/single 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 50 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome -" 
    
@@ -118,7 +118,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
    python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB)          max_cores_for_process executor_instances mapper_specific_options
    
-   Make sure that the full_path_to_sam_output_directory contains the prefix file:///. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
+   Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
    
    Example: python pairspark.py /s1/snagaraj/project_env/SRR639031_1.fastq /s1/snagaraj/project_env/SRR639031_2.fastq file:///s1/snagaraj/output/pair 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 2 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome --interleaved -"
 
