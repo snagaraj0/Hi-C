@@ -93,7 +93,7 @@ However, all mappers should be run with configurations to accept input through S
 If you are running Bowtie2 or HISAT2, please explicitly specify the number of parallel search threads using the -p flag.
 If you are using BBMAP, please remember to explicitly specify the number of search threads, the java minimum and maximum heap space, the build type, and the path to your prebuilt index. This means that running BBMAP involves creation of the genome index beforehand rather than in-memory. Additionally, make sure that there is a SPACE between the / and align2.BBMap class call as shown in scripts/singlespark.sh for BBMAP.
 
-*If you are using STAR with SparkMap, make sure to set the number of executor instances equal to the number of machines/nodes that you have on your computer cluster.
+*If you are using STAR with SparkMap, make sure to set the number of executor instances equal to the number of machines/nodes that you have on your computer cluster. If you do not you will run into executor-level errors!!!
 
 ### Running SparkMap in single-end mode
 
@@ -136,7 +136,9 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
 ### Optimization of Spark Settings
 
-We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers of cores(< 100) performance was optimized with 2-3 parallel search threads in the mapper-specific options. For BBMAP, please use 1-2 search threads for a smaller number of cores. At larger numbers of cores(> 100), we found that 1-2 parallel search threads worked optimally. If you are familiar with Spark, you can also edit your spark-defaults.conf file and specify the spark.executor.cores parameter for further optimization.
+We have found that found that setting the number of spark executor instances equal to the number of worker nodes/machines on your cluster produces optimal results. Furthermore, we have found that when using smaller numbers cores per machine(< 20) performance was optimized with 2-3 parallel search threads in the mapper-specific options for HISAT2, Tophat, and Bowtie2. For BBMAP, use 1-2 search threads for a smaller number of cores per machine. At larger numbers of cores per machine(> 20), we found that 1-2 parallel search threads worked optimally for HISAT2, Tophat, and Bowtie2. With STAR, you should set the number of threads equal to the number of cores you have available on each machine. This is because when running STAR the number of data partitions used when mapping should equal the number of executor instances you have(which you should specify as the number of machines on your cluster).
+
+If you are familiar with Spark, you can also edit your spark-defaults.conf file and specify the spark.executor.cores parameter for further optimization.
 
 ### Validation Scripts
 
