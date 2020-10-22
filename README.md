@@ -1,10 +1,10 @@
 # SparkMap
 A novel framework to speed up short read alignment using Apache Spark.
-SparkMap is optimized for:
+SparkMap produces large speed increases for:
 - [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [BBMAP](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/), and [HISAT2](http://daehwankimlab.github.io/hisat2/download/) for single-end mapping
 - [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) for paired-end mapping
 
-SparkMap can also function with [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml) and works with [STAR](https://physiology.med.cornell.edu/faculty/skrabanek/lab/angsd/lecture_notes/STARmanual.pdf) when large numbers of cores are available.*
+SparkMap can also function with [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml) and works well with [STAR](https://physiology.med.cornell.edu/faculty/skrabanek/lab/angsd/lecture_notes/STARmanual.pdf) when large numbers of cores are available.*
 
 ## Installation
 
@@ -91,15 +91,17 @@ Please look at the mapper-specific manuals (linked above) for specific mapper sy
 However, all mappers should be run with configurations to accept input through STDIN and output their reads to STDOUT. They should also be run locally as an executable and explicitly specify the number of parallel search threads needing to be launched. To run paired-end mapping, please remember to specify interleaved FASTQ input for your mapper.
 
 If you are running Bowtie2 or HISAT2, please explicitly specify the number of parallel search threads using the -p flag.
-If you are using BBMAP, please remember to explicitly specify the number of search threads, the java minimum and maximum heap space, the build type, and the path to your prebuilt index. This means that running BBMAP involves creation of the genome index beforehand rather than in-memory.
+If you are using BBMAP, please remember to explicitly specify the number of search threads, the java minimum and maximum heap space, the build type, and the path to your prebuilt index. This means that running BBMAP involves creation of the genome index beforehand rather than in-memory. Additionally, make sure that there is a SPACE between the / and align2.BBMap class call as shown in scripts/singlespark.sh for BBMAP.
+
+*If you are using STAR with SparkMap, make sure to set the number of executor instances equal to the number of machines/nodes that you have on your computer cluster.
 
 ### Running SparkMap in single-end mode
 
 1) Edit singlespark.sh file with parameters in the following format:
 
-   python singlespark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options mapper_type 
+   python singlespark.py full_path_to_fastq_directory  full_path_to_sam_output_directory  memory_to_Executor(in GB) driver_Memory(in GB) max_cores_for_process executor_instances      mapper_specific_options mapper_type logging
    
-   NOTE: If you are using BBMAP, make sure to specify an additional parameter which indicates the maximum number of partitions you would like to use for your run. This is needed      because BBMAP is RAM intensive and so a machine may run out of RAM if mapping is done on a large dataset with a large number of partitions. For reference, on a 165 core-          system/55 cores per worker node with 250 GB of free RAM per machine, a maximum of 30 partitions could be utilized on a 60 GB dataset.
+   NOTE: If you are using BBMAP, make sure to specify an additional parameter which indicates the maximum number of partitions you would like to use for your run. This is needed      because BBMAP is RAM intensive and so a machine may run out of RAM if mapping is done on a large dataset with a large number of partitions. For reference, on a 165 core-          system/55 cores per worker node with 250 GB of free RAM per machine, a maximum of 30 partitions could be utilized on a 40 GB dataset that initially had 300 partitions . The        initial number of partitions can be calculated by taking the size of your dataset in MB and dividing it by the Hadoop block size(default is 128 MB).
    
    Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
    
@@ -118,7 +120,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
 1) Edit pairspark.sh file with parameters in the following format:
 
-   python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB)          max_cores_for_process executor_instances mapper_specific_options
+   python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB)          max_cores_for_process executor_instances mapper_specific_options logging
    
    Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
    
@@ -154,5 +156,3 @@ Input: Pass input SAM file name and output text file name
 ### Important Misc. Information
 
 If you ask for a header in your mapper specific options, run  ```awk '!seen[$0]++' orig_file_name > new_file_name ``` to eliminate duplicate headers. Do this BEFORE running any further analyses or you will receive errors. However, we recommend generating the header separately and joining it to the mapping file as this is faster.
-
-*If you are using STAR with SparkMap, make sure to set the number of executor instances equal to the number of machines/nodes that you have on your computer cluster.
