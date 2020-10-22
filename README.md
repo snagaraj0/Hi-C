@@ -154,7 +154,8 @@ Use interactions.sh for single-end/locally aligned SAM files and interactions_pa
 
 ```Chr1 pos1 direction1(0 or 16 for Watson/Crick strand) Chr2 pos2 direction2```
 
-Input: Pass input SAM file name and output text file name 
+interactions.sh input example: ./interactions.sh test.sam test_interactions.txt
+interactions_pair.sh input example: ./interactions_pair.sh test.sam test1.sam test_interactions.txt
 
 ### Important Misc. Information
 
