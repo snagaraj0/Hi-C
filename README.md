@@ -103,7 +103,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
    
    NOTE: If you are using BBMAP, make sure to specify an additional parameter, max_BBMAP, which indicates the maximum number of partitions you would like to use for your run. This    is needed because BBMAP is RAM intensive and so a machine may run out of RAM if mapping is done on a large dataset with a large number of partitions. For reference, with 3        executor instances and 165 total cores with 250 GB of free RAM per machine, a maximum of 30 partitions could be utilized on a 40 GB dataset that initially had 300                  partitions. The initial number of partitions can be calculated by taking the size of your dataset in MB and dividing it by the Hadoop block size(default is 128 MB).
    
-   Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.    The logging parameter should be passed either a Y or N for Yes or No. 
+   Make sure that the full_path_to_sam_output_directory contains the prefix file: and that the SAM output directory does not already exist(remove it if it does). Executor and        driver memory should end with G to indicate Gigabytes or MB to indicate megabytes. The logging parameter should be passed either a Y or N for Yes or No. 
    
    Example: python singlespark.py /s1/snagaraj/project_env/SRR639031_1.fastq file:/s1/snagaraj/output/single 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 50 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome -" 
    
@@ -122,7 +122,7 @@ If you are using BBMAP, please remember to explicitly specify the number of sear
 
    python pairspark.py full_path_to_fastq_mate1_directory full_path_to_fastq_mate2_directory full_path_to_sam_output_directory memory_to_Executor(in GB) driver_Memory(in GB)          max_cores_for_process executor_instances mapper_specific_options logging
    
-   Make sure that the full_path_to_sam_output_directory contains the prefix file:. Executor and driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
+   Make sure that the full_path_to_sam_output_directory contains the prefix file: and that the SAM output directory does not already exist(remove it if it does). Executor and        driver memory should end with G to indicate Gigabytes or MB to indicate megabytes.
    The logging parameter should be passed either a Y or N for Yes or No. 
    
    Example: python pairspark.py /s1/snagaraj/project_env/SRR639031_1.fastq /s1/snagaraj/project_env/SRR639031_2.fastq file:/s1/snagaraj/output/pair 20G 100G 100 2 "/s1/snagaraj/bowtie2/bowtie2 --no-hd --no-sq -p 2 -x /s1/snagaraj/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome --interleaved -"
