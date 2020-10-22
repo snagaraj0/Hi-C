@@ -30,7 +30,7 @@ Unzip it with the following command.
 unzip SparkMap-master.zip
 ```
 
-Next, configure your system to make the dependencies accessible. You can either install the dependencies system-wide or through [Pipenv](https://thoughtbot.com/blog/how-to-manage-your-python-projects-with-pipenv).
+Next, configure your system to make the dependencies accessible. You can either install the dependencies system-wide or through [Pipenv](https://thoughtbot.com/blog/how-to-manage-your-python-projects-with-pipenv). With Pipenv, instead of running python ...., you will run pipenv run python ...
 
 ## Configuration Information
 
